@@ -508,7 +508,7 @@ model = tf.keras.Model(inputs, predictions)
 
 # Compile the model with binary crossentropy loss and an adam optimizer.
 model.compile(loss="binary_crossentropy", optimizer="adam", metrics=["binary_accuracy"])
-epochs = 128
+epochs = 4
 
 # Fit the model using the train and test datasets.
 #model.fit([X_train, y_train], validation_data=[X_test, y_test], epochs=epochs)
@@ -608,7 +608,7 @@ print("Shape of messages: {}".format(np.array(allVectorsTest).shape))
 # RFC Prediction
 #scaler = StandardScaler()
 #scaler.fit(allVectors)
-X = scaler.transform(allVectorsTest)
+X = scaler.transform(allVectors)
 #y_pred = rf.predict(X)
 y_pred = model.predict(X)
 y_pred_bin = []
@@ -622,7 +622,8 @@ for i in y_pred:
 print("Phishes: {}. Benign: {}.".format(numPhishesCNN, len(messages)-numPhishesCNN))
 gmailAccuracyCNN = accuracy_score(gmailLabels, y_pred_bin)
 print(gmailAccuracyCNN)
-statsFilename = "home/datasets/results/stats.csv"
+
+statsFilename = "/home/datasets/results/stats.csv"
 if os.path.isfile(statsFilename):
     outData = {"Num Topics" : [], "TF-IDF Count" : [], "Num Training" : [], "Num Test" : [], "RFC Test Accuracy" : [], "RFC Test Recall" : [], "RFC GMail Accuracy" : [], "CNN Dim" : [], "CNN Num Layers" : [],
                "CNN Accuracy" : [], "CNN Validation Accuracy" : [], "CNN GMail Accuracy" : [] }
